@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProFit.Data;
 
 namespace ProFit.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220429204741_seedAdmin")]
+    partial class seedAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -254,14 +256,13 @@ namespace ProFit.Data.Migrations
                         {
                             Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "73a0031e-2b8c-455e-a699-9981bbc5f931",
+                            ConcurrencyStamp = "b55f9d9b-5cda-476e-94be-2dd560cbb982",
                             Email = "yana.pressa@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedUserName = "YANA.PRESSA@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL6rCjf5oqSOT1MtQSj7KioUNpKQ2kyIEiC6Zm352MaW5PFWvA3fdVIJc/nT+ajYGQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENPAXcVY9jy9tJOLYjkt9Xdnu7xPDcLBYL3lEEsCGu2ylAbiTCMaq3iLWv5fnviPFw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "58d380ad-ba40-4845-95da-4156e41ae4bf",
+                            SecurityStamp = "2f05896a-95e3-4fb2-b959-dc8aa8bc5560",
                             TwoFactorEnabled = false,
                             UserName = "yana.pressa@gmail.com"
                         });

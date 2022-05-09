@@ -38,7 +38,10 @@ namespace ProFit.Data
                 Id = ADMIN_ID,
                 Email = email,
                 EmailConfirmed = true,
+                Name = "Yana_admin",
+                Phone = "0765689464",
                 UserName = email,
+                Role = StaticDetail.AdminRole,
                 NormalizedUserName = email.ToUpper()
             };
 

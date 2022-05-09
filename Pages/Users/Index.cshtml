@@ -5,3 +5,35 @@
 
 <p>This is a client's page.</p>
 
+@if (Model.userList.Count() > 0)
+{
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>E-mail</th>
+        <th>Phone</th>
+        <th>Role</th>
+        <th>Set Role</th>
+    </tr>
+
+    @foreach (var user in Model.userList)
+    {
+<tr>
+    <td>@(user.Name)</td>
+    <td>@(user.Email)</td>
+    <td>@(user.Phone)</td>
+    <td>@(user.Role)</td>
+    <td>
+        <a asp-area="Identity" asp-page="/Account/SetRole" asp-route-username=@(user.UserName) asp-route-role="Trainer">Set Trainer role</a>
+    </td>
+
+</tr>
+    }
+</table>
+}
+else
+{
+    <p>No people yet in this list</p>
+}
+
+

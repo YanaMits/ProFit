@@ -91,7 +91,7 @@ namespace ProFit.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = Input.Email, Email = Input.Email, Name = Input.Name, Phone = Input.Phone };
+                var user = new User { UserName = Input.Email, Email = Input.Email, Name = Input.Name, Phone = Input.Phone, Role = StaticDetail.UserRole};
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

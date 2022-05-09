@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProFit.Data;
 
 namespace ProFit.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220509152734_AddAdminName")]
+    partial class AddAdminName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,9 +249,6 @@ namespace ProFit.Data.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Role")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasDiscriminator().HasValue("User");
 
                     b.HasData(
@@ -257,19 +256,18 @@ namespace ProFit.Data.Migrations
                         {
                             Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f857ce47-ba10-485e-bb45-d9d421f51e6f",
+                            ConcurrencyStamp = "530423d1-d491-4c7b-9739-f62c7052128f",
                             Email = "yana.pressa@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "YANA.PRESSA@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO0XVs+gJ874loriSn2iM6EuEkTUjX7IuT0I52WYE1FLuraum8MyP9eGGWVCCErP1A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPrQcA4PMPqzyiKp7Dik8UEQKEmenmSFQt2X8gE3rAK5oXPOTtRb5LTk2JlQaW1flw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9c851b99-adeb-4230-ab9e-d64ae4b2b378",
+                            SecurityStamp = "79f51034-50a5-476b-b722-a44df9ee2993",
                             TwoFactorEnabled = false,
                             UserName = "yana.pressa@gmail.com",
                             Name = "Yana_admin",
-                            Phone = "0765689464",
-                            Role = "Admin"
+                            Phone = "0765689464"
                         });
                 });
 

@@ -10,6 +10,6 @@ namespace ProFit.Utility
         public const string AdminRole = "Admin";
         public const string UserRole = "User";
         public const string TrainerRole = "Trainer";
-        public const string UserOrAdminRole = "User,Admin";
+        public const string TrainerOrAdminRole = "Trainer,Admin";
     }
 }

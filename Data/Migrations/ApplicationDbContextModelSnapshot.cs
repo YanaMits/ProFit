@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProFit.Data;
+using ProFit.Models;
 
 namespace ProFit.Data.Migrations
 {
@@ -237,6 +237,51 @@ namespace ProFit.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ProFit.Models.Workout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrainerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TrainerId");
+
+                    b.ToTable("Workouts");
+                });
+
+            modelBuilder.Entity("ProFit.Models.WorkoutParticipant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("WorkoutId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("WorkoutId");
+
+                    b.ToTable("WorkoutParticipants");
+                });
+
             modelBuilder.Entity("ProFit.Models.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -257,14 +302,14 @@ namespace ProFit.Data.Migrations
                         {
                             Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f857ce47-ba10-485e-bb45-d9d421f51e6f",
+                            ConcurrencyStamp = "0bc63577-96d3-4dbd-98da-12685f90e3e1",
                             Email = "yana.pressa@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "YANA.PRESSA@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO0XVs+gJ874loriSn2iM6EuEkTUjX7IuT0I52WYE1FLuraum8MyP9eGGWVCCErP1A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBj41tO4H5lc8u6O4BYr6h9EHajwWJSCIbDsDLErcSnKYA9YAVpGnY55jHkf2YbGng==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9c851b99-adeb-4230-ab9e-d64ae4b2b378",
+                            SecurityStamp = "0e0a00b4-cf73-450a-a6f8-3d4058abc4bd",
                             TwoFactorEnabled = false,
                             UserName = "yana.pressa@gmail.com",
                             Name = "Yana_admin",
@@ -320,6 +365,26 @@ namespace ProFit.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProFit.Models.Workout", b =>
+                {
+                    b.HasOne("ProFit.Models.User", "Trainer")
+                        .WithMany()
+                        .HasForeignKey("TrainerId");
+                });
+
+            modelBuilder.Entity("ProFit.Models.WorkoutParticipant", b =>
+                {
+                    b.HasOne("ProFit.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.HasOne("ProFit.Models.Workout", "Workout")
+                        .WithMany("WorkoutParticipants")
+                        .HasForeignKey("WorkoutId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

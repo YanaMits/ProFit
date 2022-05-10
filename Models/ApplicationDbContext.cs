@@ -4,10 +4,9 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ProFit.Models;
 using ProFit.Utility;
 
-namespace ProFit.Data
+namespace ProFit.Models
 {
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -16,6 +15,8 @@ namespace ProFit.Data
         {
         }
         public DbSet<User> User { get; set; }
+        public DbSet<Workout> Workouts {get; set;}
+        public DbSet<WorkoutParticipant> WorkoutParticipants { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

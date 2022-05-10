@@ -7,12 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProFit.Models;
 
-
 namespace ProFit.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220429204741_seedAdmin")]
-    partial class seedAdmin
+    [Migration("20220510205132_NewWorkout")]
+    partial class NewWorkout
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -240,6 +239,51 @@ namespace ProFit.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ProFit.Models.Workout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrainerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TrainerId");
+
+                    b.ToTable("Workouts");
+                });
+
+            modelBuilder.Entity("ProFit.Models.WorkoutParticipant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("WorkoutId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("WorkoutId");
+
+                    b.ToTable("WorkoutParticipants");
+                });
+
             modelBuilder.Entity("ProFit.Models.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -250,6 +294,9 @@ namespace ProFit.Data.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasDiscriminator().HasValue("User");
 
                     b.HasData(
@@ -257,15 +304,19 @@ namespace ProFit.Data.Migrations
                         {
                             Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b55f9d9b-5cda-476e-94be-2dd560cbb982",
+                            ConcurrencyStamp = "0bc63577-96d3-4dbd-98da-12685f90e3e1",
                             Email = "yana.pressa@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAENPAXcVY9jy9tJOLYjkt9Xdnu7xPDcLBYL3lEEsCGu2ylAbiTCMaq3iLWv5fnviPFw==",
+                            NormalizedUserName = "YANA.PRESSA@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBj41tO4H5lc8u6O4BYr6h9EHajwWJSCIbDsDLErcSnKYA9YAVpGnY55jHkf2YbGng==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2f05896a-95e3-4fb2-b959-dc8aa8bc5560",
+                            SecurityStamp = "0e0a00b4-cf73-450a-a6f8-3d4058abc4bd",
                             TwoFactorEnabled = false,
-                            UserName = "yana.pressa@gmail.com"
+                            UserName = "yana.pressa@gmail.com",
+                            Name = "Yana_admin",
+                            Phone = "0765689464",
+                            Role = "Admin"
                         });
                 });
 
@@ -316,6 +367,26 @@ namespace ProFit.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProFit.Models.Workout", b =>
+                {
+                    b.HasOne("ProFit.Models.User", "Trainer")
+                        .WithMany()
+                        .HasForeignKey("TrainerId");
+                });
+
+            modelBuilder.Entity("ProFit.Models.WorkoutParticipant", b =>
+                {
+                    b.HasOne("ProFit.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.HasOne("ProFit.Models.Workout", "Workout")
+                        .WithMany("WorkoutParticipants")
+                        .HasForeignKey("WorkoutId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

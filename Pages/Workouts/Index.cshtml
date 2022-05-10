@@ -1,0 +1,29 @@
+﻿@page
+@model ProFit.Pages.Workouts.IndexModel
+@{
+}
+
+<p>Scheme of our workouts</p>
+
+@if (Model.workoutList.Count() > 0)
+{
+    <table class="table">
+        <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Trainer's name</th>
+            <th>Participants</th>
+        </tr>
+        
+        @foreach (var workout in Model.workoutList)
+        {
+            <tr>
+                <td>@(workout.Title)</td>
+                <td>@(workout.Date)</td>
+                <td>@(workout.TrainerId)</td>
+                <td></td>
+
+            </tr>
+        }
+    </table>      
+}

@@ -2,30 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ProFit.Models;
-using ProFit.Utility;
 
-namespace ProFit.Pages.Users
+namespace ProFit.Pages.Workouts
 {
-    [Authorize(Roles = StaticDetail.TrainerOrAdminRole)]
     public class IndexModel : PageModel
     {
         private ApplicationDbContext databaseContext;
         public IndexModel(ApplicationDbContext databaseContext)
-        { 
+        {
             this.databaseContext = databaseContext;
         }
+        public List<Workout> workoutList { get; set; }
 
-        public List<User> userList { get; set; }
-            
-
-        public async Task OnGet()
+        public async Task OnGetAsync()
         {
-            userList = await databaseContext.User.ToListAsync();
+            workoutList = await databaseContext.Workouts.ToListAsync();
         }
     }
+
+
 }

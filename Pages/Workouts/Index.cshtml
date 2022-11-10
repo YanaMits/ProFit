@@ -13,6 +13,7 @@
             <th>Date</th>
             <th>Trainer's name</th>
             <th>Participants</th>
+            <th>Actions</th>
         </tr>
         
         @foreach (var workout in Model.workoutList)
@@ -20,8 +21,9 @@
             <tr>
                 <td>@(workout.Title)</td>
                 <td>@(workout.Date)</td>
-                <td>@(workout.TrainerId)</td>
-                <td></td>
+                <td>@(workout.Trainer?.Name)</td>
+                <td>@(workout.WorkoutParticipants?.Count())</td>
+                <td><a asp-page="/Workouts/DelWorkout" asp-route-workoutId=@(workout.Id)>Delete</a></td>
 
             </tr>
         }

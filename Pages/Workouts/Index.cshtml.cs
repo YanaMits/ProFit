@@ -20,9 +20,14 @@ namespace ProFit.Pages.Workouts
 
         public async Task OnGetAsync()
         {
-            workoutList = await databaseContext.Workouts.ToListAsync();
+            workoutList = await databaseContext.Workouts
+                .Include(w=>w.Trainer)
+                .Include(w=>w.WorkoutParticipants)
+                .ToListAsync();
         }
     }
+
+    
 
 
 }
